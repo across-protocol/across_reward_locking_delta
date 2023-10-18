@@ -192,9 +192,11 @@ if __name__ == "__main__":
         outstanding_rewards
         .reset_index()
         .groupby("user")
+        ["delta"]
         .agg(lambda x: str(sum(map(int, x))))
     )
     total_owed_restricted = total_owed.loc[
         total_owed.map(lambda x: int(x) > 100_000000000000000000)
     ]
     total_owed_restricted.to_csv("reward_delta.csv")
+
